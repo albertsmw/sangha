@@ -33,9 +33,12 @@ export const ui = {
     'news.eventBadge': 'Event',
 
     'contact.title': 'Contact',
-    'contact.intro': 'Reach out by email or visit us at our meeting place.',
-    'contact.byEmail': 'By email',
-    'contact.whereWeMeet': 'Where we meet',
+    'contact.intro':
+      'We are a young sangha still finding our feet in Kraków. For now, the easiest way to reach us and stay in touch is through our WhatsApp community group — join us there to ask questions, meet other practitioners, and hear about upcoming sessions and gatherings.',
+    'contact.whatsapp': 'WhatsApp community group',
+    'contact.whatsappCta': 'Join the group',
+    'contact.moreSoon':
+      'More contact options will be added as the sangha grows.',
 
     'footer.contact': 'Contact',
   },
@@ -66,9 +69,11 @@ export const ui = {
 
     'contact.title': 'Kontakt',
     'contact.intro':
-      'Skontaktuj się z nami mailowo lub odwiedź nas w miejscu spotkań.',
-    'contact.byEmail': 'E-mail',
-    'contact.whereWeMeet': 'Gdzie się spotykamy',
+      'Jesteśmy młodą sanghą, która dopiero się tworzy w Krakowie. Na ten moment najprostszym sposobem, aby się z nami skontaktować i pozostać w kontakcie, jest nasza grupa społecznościowa na WhatsAppie — dołącz do nas, aby zadawać pytania, poznać innych praktykujących i być na bieżąco z nadchodzącymi sesjami i spotkaniami.',
+    'contact.whatsapp': 'Grupa społecznościowa na WhatsAppie',
+    'contact.whatsappCta': 'Dołącz do grupy',
+    'contact.moreSoon':
+      'Wraz z rozwojem sanghi pojawią się kolejne formy kontaktu.',
 
     'footer.contact': 'Kontakt',
   },

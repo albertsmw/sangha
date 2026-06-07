@@ -10,26 +10,27 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
 const t = useTranslations(lang);
+
+const whatsappUrl = '#';
 ---
 
 <Base lang={lang} title={t('contact.title')}>
-  <h1 class="font-serif text-4xl text-stone-900">{t('contact.title')}</h1>
-  <p class="mt-4 text-stone-600 max-w-xl">{t('contact.intro')}</p>
+  <div class="max-w-2xl mx-auto">
+    <h1 class="font-serif text-4xl text-stone-900">{t('contact.title')}</h1>
+    <p class="mt-4 text-stone-600">{t('contact.intro')}</p>
 
-  <div class="grid md:grid-cols-2 gap-12 mt-10">
-    <div>
-      <h2 class="font-serif text-xl text-stone-900">{t('contact.byEmail')}</h2>
-      <p class="text-stone-700 mt-1">
-        <a href="mailto:hello@example.com" class="underline">hello@example.com</a>
+    <div class="mt-10 rounded-lg border border-stone-200 p-6">
+      <h2 class="font-serif text-xl text-stone-900">{t('contact.whatsapp')}</h2>
+      <p class="mt-4">
+        <a
+          href={whatsappUrl}
+          class="inline-block rounded-md bg-stone-900 px-4 py-2 text-sm text-white hover:bg-stone-700"
+        >
+          {t('contact.whatsappCta')}
+        </a>
       </p>
     </div>
 
-    <div>
-      <h2 class="font-serif text-xl text-stone-900">{t('contact.whereWeMeet')}</h2>
-      <p class="text-stone-700 mt-1">
-        [Address line 1]<br />
-        [City, postcode]
-      </p>
-    </div>
+    <p class="mt-6 text-sm text-stone-500">{t('contact.moreSoon')}</p>
   </div>
 </Base>
