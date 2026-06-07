@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const news = (await getCollection('news')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long' });
+---
+
+<Base title="News" description="News and announcements from the sangha.">
+  <h1 class="font-serif text-4xl text-stone-900">News</h1>
+  <p class="mt-4 text-stone-600">Announcements, reflections, and updates from the community.</p>
+
+  <ul class="mt-10 space-y-8">
+    {news.length === 0 && <li class="text-stone-500">No news yet.</li>}
+    {news.map((item) => (
+      <li class="border-b border-stone-200 pb-6">
+        <a href={`/news/${item.id}`} class="block group">
+          <p class="text-xs text-stone-500">{dateFmt.format(item.data.date)}</p>
+          <h2 class="font-serif text-2xl text-stone-900 mt-1 group-hover:underline">
+            {item.data.title}
+          </h2>
+          <p class="text-stone-700 mt-2">{item.data.summary}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const now = new Date();
+const all = await getCollection('events');
+const upcoming = all
+  .filter((e) => e.data.date >= now)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const past = all
+  .filter((e) => e.data.date < now)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long' });
+---
+
+<Base title="Events" description="Upcoming and past events from the sangha.">
+  <h1 class="font-serif text-4xl text-stone-900">Events</h1>
+  <p class="mt-4 text-stone-600">Retreats, talks, and gatherings.</p>
+
+  <section class="mt-10">
+    <h2 class="font-serif text-2xl text-stone-900">Upcoming</h2>
+    <ul class="mt-4 space-y-6">
+      {upcoming.length === 0 && <li class="text-stone-500">No upcoming events.</li>}
+      {upcoming.map((item) => (
+        <li class="border-b border-stone-200 pb-6">
+          <a href={`/events/${item.id}`} class="block group">
+            <p class="text-xs text-stone-500">
+              {dateFmt.format(item.data.date)} · {item.data.location}
+            </p>
+            <h3 class="font-serif text-xl text-stone-900 mt-1 group-hover:underline">
+              {item.data.title}
+            </h3>
+            <p class="text-stone-700 mt-2">{item.data.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {past.length > 0 && (
+    <section class="mt-12">
+      <h2 class="font-serif text-2xl text-stone-900">Past</h2>
+      <ul class="mt-4 space-y-4 text-stone-600">
+        {past.map((item) => (
+          <li>
+            <a href={`/events/${item.id}`} class="hover:text-stone-900">
+              {dateFmt.format(item.data.date)} — {item.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>
