@@ -1,6 +1,10 @@
 ---
 title: Lama Dorje
 intro: A brief biography of Lama Dorje — lineage, teachers, and the path that led to founding our sangha.
+image: /images/lama-dorje-1_jpg-1.avif
+imageAlt: Lama Dorje
+quote: May we each become the mirror in which all beings can clearly see their Buddha Nature.
+quoteAuthor: Lama Dorje
 ---
 
 ## Biography

@@ -27,6 +27,8 @@ const pages = defineCollection({
     intro: z.string().optional(),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    quote: z.string().optional(),
+    quoteAuthor: z.string().optional(),
   }),
 });
 
