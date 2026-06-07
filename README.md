@@ -1,7 +1,7 @@
 # Sangha website
 
 A small static website for a Buddhist sangha — Lama Dorje page, community info, news,
-events, and contact. Built to be cheap (free hosting), fast to develop, and editable by a
+and contact. Built to be cheap (free hosting), fast to develop, and editable by a
 handful of developers without a separate CMS.
 
 ## Languages
@@ -11,24 +11,28 @@ tiny script that reads the browser's preferred language and redirects accordingl
 is remembered in `localStorage` so a manual EN/PL switch sticks. Both locales are configured
 in `astro.config.mjs` — flip `defaultLocale` to change which one `/` falls back to with no JS.
 
-All content (news, events, the Lama Dorje page, the Sangha page) must exist in both
-languages. A missing translation fails the build, not the live site. See `CONTRIBUTING.md`
-for the editing flow.
+All content (news, the Lama Dorje page, the Sangha page) must exist in both languages. A
+missing translation fails the build, not the live site. See `CONTRIBUTING.md` for the
+editing flow.
 
 ## What it is
 
-Six pages per locale, all statically generated:
+Five pages per locale, all statically generated:
 
-- `/` — landing page with hero, 3 most recent news items, 3 next upcoming events.
+- `/` — landing page with hero, highlighted item(s), 3 most recent news posts.
 - `/lama-dorje` — about the teacher.
 - `/sangha` — about the community, where they meet, practice schedule.
 - `/news` — list of all news posts, plus per-post pages at `/news/<slug>`.
-- `/events` — upcoming + past events, plus per-event pages at `/events/<slug>`.
 - `/contact` — email and meeting address.
 
-There is no admin UI, no database, and nothing to operate. News and events are Markdown
-files in this repo. Editing one means opening a pull request; merging it triggers a
-rebuild and redeploy.
+Events are a type of news (`type: event` in the frontmatter, with a `location` field). They
+appear in the same list and at the same URL space — `/news/<slug>` — with a small "Event"
+badge. Any news item can be flagged `highlight: true` to feature it at the top of the home
+page in a special card.
+
+There is no admin UI, no database, and nothing to operate. All content is Markdown files
+in this repo. Editing one means opening a pull request; merging it triggers a rebuild and
+redeploy.
 
 ## How it works
 
@@ -37,11 +41,12 @@ runs the page templates, and produces plain HTML files in `dist/`. Those files g
 served by Cloudflare Pages — no server process runs at request time. That's why hosting
 is free and the site is fast.
 
-**Content collections** (`src/content.config.ts`) define the shape of a news post and an
-event using a Zod schema (title, date, summary, optional image…). When `pnpm build` runs,
-Astro validates every Markdown file against its schema. A typo in a frontmatter field
-fails the build before anything ships. This is the "CMS" — the schema is the contract,
-and the editor experience is just creating a Markdown file in the right folder.
+**Content collections** (`src/content.config.ts`) define the shape of a news post using a
+Zod schema (type, title, date, summary, optional image, optional location for events…).
+When `pnpm build` runs, Astro validates every Markdown file against its schema. A typo in
+a frontmatter field fails the build before anything ships. This is the "CMS" — the schema
+is the contract, and the editor experience is just creating a Markdown file in the right
+folder.
 
 **React islands.** The site is mostly plain Astro components (`.astro` files), which
 ship as HTML with zero JavaScript. React is wired up via `@astrojs/react` and can be
@@ -56,28 +61,32 @@ neutral palette, serif headings, generous spacing — live as classes in the tem
 
 ```
 src/
-├── content.config.ts          Zod schemas for the news + events collections
+├── content.config.ts                Zod schemas for news + pages collections
 ├── content/
-│   ├── news/                  Markdown files, one per post
-│   └── events/                Markdown files, one per event
+│   ├── news/{en,pl}/                Markdown files, one per post (both locales required)
+│   └── pages/{en,pl}/               Bodies for the Lama Dorje + Sangha pages
+├── i18n/
+│   ├── ui.ts                        UI string dictionary + useTranslations
+│   ├── utils.ts                     getLangFromUrl, switchLangUrl, localeDate
+│   └── parity.ts                    Build-time check: every slug exists in every locale
 ├── components/
-│   ├── Nav.astro              Top nav, list of links lives here
-│   └── Footer.astro
+│   ├── Nav.astro                    Top nav + EN/PL switcher
+│   ├── Footer.astro
+│   └── HighlightedItem.astro        Featured card on the home page
 ├── layouts/
-│   └── Base.astro             HTML shell + SEO meta (og:title, og:image, etc.)
+│   └── Base.astro                   HTML shell + SEO meta (og:title, og:image, hreflang)
 └── pages/
-    ├── index.astro            Home
-    ├── lama-dorje.astro       Static content
-    ├── sangha.astro           Static content
-    ├── contact.astro          Static content
-    ├── news/
-    │   ├── index.astro        List page
-    │   └── [...slug].astro    Detail page (one route per Markdown file)
-    └── events/
-        ├── index.astro
-        └── [...slug].astro
+    ├── index.astro                  Root: browser-language redirect
+    └── [lang]/
+        ├── index.astro              Home (highlighted items + latest news)
+        ├── lama-dorje.astro         Pulls body from pages collection
+        ├── sangha.astro             Pulls body from pages collection
+        ├── contact.astro            Email + address
+        └── news/
+            ├── index.astro          List (news + events together, event badge)
+            └── [...slug].astro      Detail
 public/
-└── images/                    Static images referenced from Markdown frontmatter
+└── images/                          Static images referenced from frontmatter
 ```
 
 ## Commands
@@ -100,7 +109,7 @@ The free tier covers unlimited bandwidth, custom domain, and HTTPS.
 
 ## Editing content
 
-See `CONTRIBUTING.md` for the step-by-step on adding a news post or event.
+See `CONTRIBUTING.md` for the step-by-step on adding a news post (regular or event-type).
 
 ## Adding donations later
 

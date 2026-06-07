@@ -16,7 +16,6 @@ export const ui = {
     'nav.lamaDorje': 'Lama Dorje',
     'nav.sangha': 'Sangha',
     'nav.news': 'News',
-    'nav.events': 'Events',
     'nav.contact': 'Contact',
 
     'home.title': 'A community of practice',
@@ -24,21 +23,14 @@ export const ui = {
       'Welcome to our sangha. We gather for meditation, teachings, and retreat under the guidance of Lama Dorje.',
     'home.latestNews': 'Latest news',
     'home.allNews': 'All news →',
-    'home.upcomingEvents': 'Upcoming events',
-    'home.allEvents': 'All events →',
     'home.noNews': 'No news yet.',
-    'home.noEvents': 'No upcoming events.',
+    'home.highlightBadge': 'Highlighted',
+    'home.learnMore': 'Learn more →',
 
     'news.title': 'News',
     'news.subtitle': 'Announcements, reflections, and updates from the community.',
     'news.back': '← All news',
-
-    'events.title': 'Events',
-    'events.subtitle': 'Retreats, talks, and gatherings.',
-    'events.upcoming': 'Upcoming',
-    'events.past': 'Past',
-    'events.none': 'No upcoming events.',
-    'events.back': '← All events',
+    'news.eventBadge': 'Event',
 
     'contact.title': 'Contact',
     'contact.intro': 'Reach out by email or visit us at our meeting place.',
@@ -56,7 +48,6 @@ export const ui = {
     'nav.lamaDorje': 'Lama Dorje',
     'nav.sangha': 'Sangha',
     'nav.news': 'Aktualności',
-    'nav.events': 'Wydarzenia',
     'nav.contact': 'Kontakt',
 
     'home.title': 'Wspólnota praktyki',
@@ -64,21 +55,14 @@ export const ui = {
       'Witamy w naszej sandze. Spotykamy się na medytacji, naukach i odosobnieniach pod kierunkiem Lamy Dordże.',
     'home.latestNews': 'Najnowsze aktualności',
     'home.allNews': 'Wszystkie aktualności →',
-    'home.upcomingEvents': 'Nadchodzące wydarzenia',
-    'home.allEvents': 'Wszystkie wydarzenia →',
     'home.noNews': 'Brak aktualności.',
-    'home.noEvents': 'Brak nadchodzących wydarzeń.',
+    'home.highlightBadge': 'Wyróżnione',
+    'home.learnMore': 'Dowiedz się więcej →',
 
     'news.title': 'Aktualności',
     'news.subtitle': 'Ogłoszenia, refleksje i wiadomości od wspólnoty.',
     'news.back': '← Wszystkie aktualności',
-
-    'events.title': 'Wydarzenia',
-    'events.subtitle': 'Odosobnienia, wykłady i spotkania.',
-    'events.upcoming': 'Nadchodzące',
-    'events.past': 'Minione',
-    'events.none': 'Brak nadchodzących wydarzeń.',
-    'events.back': '← Wszystkie wydarzenia',
+    'news.eventBadge': 'Wydarzenie',
 
     'contact.title': 'Kontakt',
     'contact.intro':

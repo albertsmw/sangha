@@ -1,17 +1,15 @@
 ---
-title: Nasza sangha
-intro: Kim jesteśmy, gdzie się spotykamy i jak dołączyć do wspólnej praktyki.
+title: Nasza sangha w Krakowie
+intro: Jesteśmy obecnie w trakcie tworzenia i organizowania nowej sanghi w Krakowie.
 ---
 
-## Harmonogram praktyki
 
-[Wymień regularne medytacje, grupy studyjne i inne stałe spotkania.]
+Niezależnie od tego, czy dopiero zaczynasz swoją przygodę z praktyką buddyjską, czy praktykujesz od lat, serdecznie zapraszamy do kontaktu z nami.
 
-## Gdzie się spotykamy
+Aby być na bieżąco z nadchodzącymi sesjami medytacyjnymi, naukami, spotkaniami i innymi wydarzeniami, możesz:
 
-[Opisz miejsce spotkań, adres oraz wszelkie informacje o dostępie.]
+- Dołączyć do naszej grupy społecznościowej na WhatsAppie
+- Obserwować nas na Facebooku
+- Sprawdzać nadchodzące wydarzenia na tej stronie
 
-## Dołącz do nas
-
-Nowi praktykujący są zawsze mile widziani. Przed pierwszą wizytą prosimy o kontakt przez stronę
-kontaktową.
+Cieszymy się na spotkanie i wspólną praktykę.

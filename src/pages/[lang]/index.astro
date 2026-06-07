@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import HighlightedItem from '../../components/HighlightedItem.astro';
 import { languages, useTranslations, type Lang } from '../../i18n/ui';
 import { localeDate, isLang } from '../../i18n/utils';
 import { assertParity, splitEntryId } from '../../i18n/parity';
@@ -14,20 +15,18 @@ if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
 const t = useTranslations(lang);
 
 const allNews = await getCollection('news');
-const allEvents = await getCollection('events');
-assertParity(allNews, 'news');
-assertParity(allEvents, 'events');
+assertParity(allNews, 'news', { matchFields: ['type', 'date', 'highlight'] });
 
 const now = new Date();
 
-const latestNews = allNews
-  .filter((n) => splitEntryId(n.id)?.lang === lang)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+const langNews = allNews.filter((n) => splitEntryId(n.id)?.lang === lang);
 
-const upcomingEvents = allEvents
-  .filter((e) => splitEntryId(e.id)?.lang === lang && e.data.date >= now)
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+const highlighted = langNews
+  .filter((n) => n.data.highlight && (n.data.type !== 'event' || n.data.date >= now))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const latestNews = langNews
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
 const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
@@ -39,49 +38,61 @@ const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
     <p class="mt-4 text-lg text-stone-600 max-w-xl mx-auto">{t('home.intro')}</p>
   </section>
 
-  <section class="grid md:grid-cols-2 gap-10 mt-8">
-    <div>
-      <div class="flex items-baseline justify-between">
-        <h2 class="font-serif text-2xl text-stone-900">{t('home.latestNews')}</h2>
-        <a href={`/${lang}/news`} class="text-sm text-stone-600 hover:text-stone-900">
-          {t('home.allNews')}
-        </a>
-      </div>
-      <ul class="mt-4 space-y-4">
-        {latestNews.length === 0 && <li class="text-stone-500">{t('home.noNews')}</li>}
-        {latestNews.map((item) => (
-          <li>
-            <a href={`/${lang}/news/${slugOf(item.id)}`} class="block group">
-              <p class="text-xs text-stone-500">{localeDate(item.data.date, lang)}</p>
-              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
-              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+  {highlighted.length > 0 && (
+    <section class="mt-4 space-y-6">
+      {highlighted.map((item) => (
+        <HighlightedItem
+          lang={lang}
+          href={`/${lang}/news/${slugOf(item.id)}`}
+          title={item.data.title}
+          date={item.data.date}
+          location={item.data.location}
+          summary={item.data.summary}
+          image={item.data.image}
+          imageAlt={item.data.imageAlt}
+        />
+      ))}
+    </section>
+  )}
 
-    <div>
-      <div class="flex items-baseline justify-between">
-        <h2 class="font-serif text-2xl text-stone-900">{t('home.upcomingEvents')}</h2>
-        <a href={`/${lang}/events`} class="text-sm text-stone-600 hover:text-stone-900">
-          {t('home.allEvents')}
-        </a>
-      </div>
-      <ul class="mt-4 space-y-4">
-        {upcomingEvents.length === 0 && <li class="text-stone-500">{t('home.noEvents')}</li>}
-        {upcomingEvents.map((item) => (
-          <li>
-            <a href={`/${lang}/events/${slugOf(item.id)}`} class="block group">
-              <p class="text-xs text-stone-500">
-                {localeDate(item.data.date, lang)} · {item.data.location}
-              </p>
-              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
-              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
+  <section class="mt-16">
+    <div class="flex items-baseline justify-between">
+      <h2 class="font-serif text-2xl text-stone-900">{t('home.latestNews')}</h2>
+      <a href={`/${lang}/news`} class="text-sm text-stone-600 hover:text-stone-900">
+        {t('home.allNews')}
+      </a>
     </div>
+    <ul class="mt-6 grid md:grid-cols-3 gap-8">
+      {latestNews.length === 0 && (
+        <li class="text-stone-500">{t('home.noNews')}</li>
+      )}
+      {latestNews.map((item) => (
+        <li>
+          <a href={`/${lang}/news/${slugOf(item.id)}`} class="block group">
+            {item.data.image && (
+              <div class="aspect-[16/10] overflow-hidden rounded-md bg-stone-100 mb-3">
+                <img
+                  src={item.data.image}
+                  alt={item.data.imageAlt ?? ''}
+                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"
+                />
+              </div>
+            )}
+            <p class="text-xs text-stone-500 flex items-center gap-2">
+              {item.data.type === 'event' && (
+                <span class="inline-block rounded-full bg-stone-900 text-white text-[10px] uppercase tracking-wider px-2 py-0.5">
+                  {t('news.eventBadge')}
+                </span>
+              )}
+              <span>{localeDate(item.data.date, lang)}</span>
+            </p>
+            <p class="font-serif text-lg text-stone-900 mt-1 group-hover:underline">
+              {item.data.title}
+            </p>
+            <p class="text-sm text-stone-600 mt-2">{item.data.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
 </Base>

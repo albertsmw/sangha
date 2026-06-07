@@ -1,7 +1,7 @@
 # Contributing content
 
-This site has no separate CMS. News posts, events, and the static "Lama Dorje" and "Sangha"
-pages live as Markdown files in the repo. To publish, open a pull request — once merged to
+This site has no separate CMS. News posts and the static "Lama Dorje" and "Sangha" pages
+live as Markdown files in the repo. To publish, open a pull request — once merged to
 `main`, Cloudflare Pages rebuilds and deploys.
 
 ## Languages
@@ -25,6 +25,7 @@ removing one side.
    summary: One or two sentences shown in lists and link previews.
    image: /images/news/your-image.jpg   # optional
    imageAlt: Description for screen readers # optional, recommended if image is set
+   highlight: false                     # optional; true = featured on the home page
    ---
 
    Body of the post in Markdown.
@@ -36,26 +37,38 @@ removing one side.
 
 ## Add an event
 
+Events are a type of news. Same folder, same routes (`/{lang}/news/<slug>`) — just set
+`type: event` in the frontmatter and include a `location`.
+
 1. Create both files with the same filename:
-   - `src/content/events/en/YYYY-MM-DD-short-slug.md`
-   - `src/content/events/pl/YYYY-MM-DD-short-slug.md`
+   - `src/content/news/en/YYYY-MM-DD-short-slug.md`
+   - `src/content/news/pl/YYYY-MM-DD-short-slug.md`
 2. Frontmatter for each:
 
    ```md
    ---
+   type: event
    title: Name of the event
-   date: 2026-07-15
-   location: Where it happens
+   date: 2026-07-15                     # the date the event happens
+   location: Where it happens           # required for events; can be translated
    summary: One or two sentences shown in lists.
-   image: /images/events/your-image.jpg   # optional
+   image: /images/news/your-image.jpg   # optional
    imageAlt: Description for screen readers # optional, recommended if image is set
+   highlight: false                     # optional; true = featured on the home page
    ---
 
    Body of the event description in Markdown.
    ```
 
-3. Drop any image in `public/images/events/`.
-4. Open a PR, review, merge.
+The news list (`/{lang}/news`) shows everything — regular news and events together — with a
+small "Event" badge on event-type items.
+
+### Highlighting on the home page
+
+Set `highlight: true` in the frontmatter (in **both** locale files — `type`, `date`, and
+`highlight` must match across locales or the build fails). Highlighted items appear in a
+featured card at the top of the home page. Highlighted events disappear from the home page
+once their `date` has passed; highlighted regular news items stay until you toggle the flag.
 
 ## Edit a static page (Lama Dorje, Sangha)
 
@@ -92,6 +105,7 @@ language. Use the EN/PL switcher in the nav to override; the choice is remembere
 
 ## Schema enforcement
 
-`src/content.config.ts` defines required frontmatter fields. If you forget `title` or `date`,
-`pnpm build` fails with a clear error. The parity check (`src/i18n/parity.ts`) additionally
-fails the build if a slug exists in one language but not the other.
+`src/content.config.ts` defines required frontmatter fields. If you forget `title` or `date`
+— or if you set `type: event` and forget `location` — `pnpm build` fails with a clear error.
+The parity check (`src/i18n/parity.ts`) additionally fails the build if a slug exists in one
+language but not the other, or if `type` / `date` / `highlight` disagree across locales.

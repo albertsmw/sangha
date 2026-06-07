@@ -7,7 +7,7 @@ import { assertParity, splitEntryId } from '../../../i18n/parity';
 
 export async function getStaticPaths() {
   const all = await getCollection('news');
-  assertParity(all, 'news');
+  assertParity(all, 'news', { matchFields: ['type', 'date', 'highlight'] });
   return all.map((entry) => {
     const parts = splitEntryId(entry.id)!;
     return {
@@ -32,7 +32,17 @@ const { Content } = await render(entry);
   image={entry.data.image}
 >
   <article class="max-w-3xl mx-auto">
-    <p class="text-sm text-stone-500">{localeDate(entry.data.date, lang)}</p>
+    <p class="text-sm text-stone-500 flex items-center gap-2">
+      {entry.data.type === 'event' && (
+        <span class="inline-block rounded-full bg-stone-900 text-white text-[10px] uppercase tracking-wider px-2 py-0.5">
+          {t('news.eventBadge')}
+        </span>
+      )}
+      <span>
+        {localeDate(entry.data.date, lang)}
+        {entry.data.location && <> · {entry.data.location}</>}
+      </span>
+    </p>
     <h1 class="font-serif text-4xl text-stone-900 mt-2">{entry.data.title}</h1>
     {entry.data.image && (
       <img

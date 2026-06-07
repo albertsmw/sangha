@@ -3,25 +3,21 @@ import { glob } from 'astro/loaders';
 
 const news = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    summary: z.string(),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-  }),
-});
-
-const events = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    location: z.string(),
-    summary: z.string(),
-    image: z.string().optional(),
-    imageAlt: z.string().optional(),
-  }),
+  schema: z
+    .object({
+      type: z.enum(['news', 'event']).default('news'),
+      title: z.string(),
+      date: z.coerce.date(),
+      location: z.string().optional(),
+      summary: z.string(),
+      image: z.string().optional(),
+      imageAlt: z.string().optional(),
+      highlight: z.boolean().default(false),
+    })
+    .refine((data) => data.type !== 'event' || (data.location && data.location.length > 0), {
+      message: 'Entries with type: event must include a "location" field.',
+      path: ['location'],
+    }),
 });
 
 const pages = defineCollection({
@@ -34,4 +30,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { news, events, pages };
+export const collections = { news, pages };

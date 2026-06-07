@@ -1,16 +1,15 @@
 ---
-title: Our sangha
-intro: Who we are, where we gather, and how to join us in practice.
+title: Our Sangha in Kraków
+intro: We are currently in the process of building and organizing a new sangha in Kraków. 
 ---
 
-## Practice schedule
 
-[List recurring sittings, study groups, and other regular gatherings.]
+Whether you are completely new to Buddhist practice or have been practicing for years, you are warmly welcome to connect with us.
 
-## Where we meet
+To stay informed about upcoming meditation sessions, teachings, gatherings, and other activities, you can:
 
-[Describe the meeting space, address, and any access notes.]
+- Join our WhatsApp community group
+- Follow us on Facebook
+- Check upcoming events on this website
 
-## Joining us
-
-New practitioners are always welcome. See the contact page to reach out before your first visit.
+We look forward to meeting you and practicing together.

@@ -17,12 +17,12 @@ const { Content } = await render(entry);
 ---
 
 <Base lang={lang} title={entry.data.title} description={entry.data.intro}>
-  <article class="prose prose-stone max-w-none">
+  <article class="max-w-3xl mx-auto">
     <h1 class="font-serif text-4xl text-stone-900">{entry.data.title}</h1>
     {entry.data.intro && (
       <p class="text-lg text-stone-600 mt-4">{entry.data.intro}</p>
     )}
-    <div class="mt-8">
+    <div class="prose prose-stone mt-8 max-w-none">
       <Content />
     </div>
   </article>

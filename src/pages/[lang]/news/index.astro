@@ -14,7 +14,7 @@ if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
 const t = useTranslations(lang);
 
 const all = await getCollection('news');
-assertParity(all, 'news');
+assertParity(all, 'news', { matchFields: ['type', 'date', 'highlight'] });
 
 const news = all
   .filter((n) => splitEntryId(n.id)?.lang === lang)
@@ -32,7 +32,17 @@ const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
     {news.map((item) => (
       <li class="border-b border-stone-200 pb-6">
         <a href={`/${lang}/news/${slugOf(item.id)}`} class="block group">
-          <p class="text-xs text-stone-500">{localeDate(item.data.date, lang)}</p>
+          <p class="text-xs text-stone-500 flex items-center gap-2">
+            {item.data.type === 'event' && (
+              <span class="inline-block rounded-full bg-stone-900 text-white text-[10px] uppercase tracking-wider px-2 py-0.5">
+                {t('news.eventBadge')}
+              </span>
+            )}
+            <span>
+              {localeDate(item.data.date, lang)}
+              {item.data.location && <> · {item.data.location}</>}
+            </span>
+          </p>
           <h2 class="font-serif text-2xl text-stone-900 mt-1 group-hover:underline">
             {item.data.title}
           </h2>

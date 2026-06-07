@@ -1,8 +1,10 @@
 ---
+type: event
 title: Letnie odosobnienie z Lamą Dordże
 date: 2026-07-15
 location: Ośrodek górski
 summary: Trzydniowe odosobnienie w milczeniu poświęcone praktyce szamatha i współczucia. Otwarte dla wszystkich poziomów.
+highlight: true
 ---
 
 Zapraszamy na trzy dni prowadzonej praktyki, nauk i cichego skupienia w górach. Osoby
