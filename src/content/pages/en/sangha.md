@@ -8,8 +8,8 @@ Whether you are completely new to Buddhist practice or have been practicing for 
 
 To stay informed about upcoming meditation sessions, teachings, gatherings, and other activities, you can:
 
-- Join our WhatsApp community group
-- Follow us on Facebook
+- Join our [WhatsApp community group](#)
+- Follow us on [Facebook](https://www.facebook.com/profile.php?id=61590731840739)
 - Check upcoming events on this website
 
 We look forward to meeting you and practicing together.
