@@ -4,9 +4,20 @@ A small static website for a Buddhist sangha — Lama Dorje page, community info
 events, and contact. Built to be cheap (free hosting), fast to develop, and editable by a
 handful of developers without a separate CMS.
 
+## Languages
+
+The site is bilingual: English (`/en/...`) and Polish (`/pl/...`). The root path `/` runs a
+tiny script that reads the browser's preferred language and redirects accordingly; the choice
+is remembered in `localStorage` so a manual EN/PL switch sticks. Both locales are configured
+in `astro.config.mjs` — flip `defaultLocale` to change which one `/` falls back to with no JS.
+
+All content (news, events, the Lama Dorje page, the Sangha page) must exist in both
+languages. A missing translation fails the build, not the live site. See `CONTRIBUTING.md`
+for the editing flow.
+
 ## What it is
 
-Six pages, all statically generated:
+Six pages per locale, all statically generated:
 
 - `/` — landing page with hero, 3 most recent news items, 3 next upcoming events.
 - `/lama-dorje` — about the teacher.

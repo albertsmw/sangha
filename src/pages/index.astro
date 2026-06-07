@@ -1,71 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
-import Base from '../layouts/Base.astro';
-
-const now = new Date();
-
-const allNews = await getCollection('news');
-const latestNews = allNews
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
-
-const allEvents = await getCollection('events');
-const upcomingEvents = allEvents
-  .filter((e) => e.data.date >= now)
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
-  .slice(0, 3);
-
-const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'long' });
+import { defaultLang, languages } from '../i18n/ui';
+const supported = Object.keys(languages);
 ---
 
-<Base title="Sangha">
-  <section class="text-center py-12">
-    <h1 class="font-serif text-4xl md:text-5xl text-stone-900">A community of practice</h1>
-    <p class="mt-4 text-lg text-stone-600 max-w-xl mx-auto">
-      Welcome to our sangha. We gather for meditation, teachings, and retreat under the guidance of
-      Lama Dorje.
+<!doctype html>
+<html lang={defaultLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sangha</title>
+    <meta http-equiv="refresh" content={`0; url=/${defaultLang}/`} />
+    <link rel="canonical" href={`/${defaultLang}/`} />
+    <script is:inline define:vars={{ supported, defaultLang }}>
+      try {
+        const stored = localStorage.getItem('lang');
+        let pick = stored && supported.includes(stored) ? stored : null;
+        if (!pick) {
+          const prefs = navigator.languages?.length ? navigator.languages : [navigator.language];
+          for (const pref of prefs) {
+            const short = String(pref || '').toLowerCase().split('-')[0];
+            if (supported.includes(short)) { pick = short; break; }
+          }
+        }
+        window.location.replace('/' + (pick || defaultLang) + '/');
+      } catch {
+        window.location.replace('/' + defaultLang + '/');
+      }
+    </script>
+  </head>
+  <body>
+    <p style="font-family: system-ui, sans-serif; padding: 2rem; color: #555;">
+      Redirecting… <a href={`/${defaultLang}/`}>continue</a>
     </p>
-  </section>
-
-  <section class="grid md:grid-cols-2 gap-10 mt-8">
-    <div>
-      <div class="flex items-baseline justify-between">
-        <h2 class="font-serif text-2xl text-stone-900">Latest news</h2>
-        <a href="/news" class="text-sm text-stone-600 hover:text-stone-900">All news →</a>
-      </div>
-      <ul class="mt-4 space-y-4">
-        {latestNews.length === 0 && <li class="text-stone-500">No news yet.</li>}
-        {latestNews.map((item) => (
-          <li>
-            <a href={`/news/${item.id}`} class="block group">
-              <p class="text-xs text-stone-500">{dateFmt.format(item.data.date)}</p>
-              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
-              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-
-    <div>
-      <div class="flex items-baseline justify-between">
-        <h2 class="font-serif text-2xl text-stone-900">Upcoming events</h2>
-        <a href="/events" class="text-sm text-stone-600 hover:text-stone-900">All events →</a>
-      </div>
-      <ul class="mt-4 space-y-4">
-        {upcomingEvents.length === 0 && <li class="text-stone-500">No upcoming events.</li>}
-        {upcomingEvents.map((item) => (
-          <li>
-            <a href={`/events/${item.id}`} class="block group">
-              <p class="text-xs text-stone-500">
-                {dateFmt.format(item.data.date)} · {item.data.location}
-              </p>
-              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
-              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-</Base>
+  </body>
+</html>

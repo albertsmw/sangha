@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { languages, useTranslations, type Lang } from '../../../i18n/ui';
+import { localeDate, isLang } from '../../../i18n/utils';
+import { assertParity, splitEntryId } from '../../../i18n/parity';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
+const t = useTranslations(lang);
+
+const all = await getCollection('news');
+assertParity(all, 'news');
+
+const news = all
+  .filter((n) => splitEntryId(n.id)?.lang === lang)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
+---
+
+<Base lang={lang} title={t('news.title')} description={t('news.subtitle')}>
+  <h1 class="font-serif text-4xl text-stone-900">{t('news.title')}</h1>
+  <p class="mt-4 text-stone-600">{t('news.subtitle')}</p>
+
+  <ul class="mt-10 space-y-8">
+    {news.length === 0 && <li class="text-stone-500">{t('home.noNews')}</li>}
+    {news.map((item) => (
+      <li class="border-b border-stone-200 pb-6">
+        <a href={`/${lang}/news/${slugOf(item.id)}`} class="block group">
+          <p class="text-xs text-stone-500">{localeDate(item.data.date, lang)}</p>
+          <h2 class="font-serif text-2xl text-stone-900 mt-1 group-hover:underline">
+            {item.data.title}
+          </h2>
+          <p class="text-stone-700 mt-2">{item.data.summary}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>

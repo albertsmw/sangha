@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { languages, useTranslations, type Lang } from '../../i18n/ui';
+import { localeDate, isLang } from '../../i18n/utils';
+import { assertParity, splitEntryId } from '../../i18n/parity';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
+const t = useTranslations(lang);
+
+const allNews = await getCollection('news');
+const allEvents = await getCollection('events');
+assertParity(allNews, 'news');
+assertParity(allEvents, 'events');
+
+const now = new Date();
+
+const latestNews = allNews
+  .filter((n) => splitEntryId(n.id)?.lang === lang)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const upcomingEvents = allEvents
+  .filter((e) => splitEntryId(e.id)?.lang === lang && e.data.date >= now)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+  .slice(0, 3);
+
+const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
+---
+
+<Base lang={lang} title={t('site.name')}>
+  <section class="text-center py-12">
+    <h1 class="font-serif text-4xl md:text-5xl text-stone-900">{t('home.title')}</h1>
+    <p class="mt-4 text-lg text-stone-600 max-w-xl mx-auto">{t('home.intro')}</p>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-10 mt-8">
+    <div>
+      <div class="flex items-baseline justify-between">
+        <h2 class="font-serif text-2xl text-stone-900">{t('home.latestNews')}</h2>
+        <a href={`/${lang}/news`} class="text-sm text-stone-600 hover:text-stone-900">
+          {t('home.allNews')}
+        </a>
+      </div>
+      <ul class="mt-4 space-y-4">
+        {latestNews.length === 0 && <li class="text-stone-500">{t('home.noNews')}</li>}
+        {latestNews.map((item) => (
+          <li>
+            <a href={`/${lang}/news/${slugOf(item.id)}`} class="block group">
+              <p class="text-xs text-stone-500">{localeDate(item.data.date, lang)}</p>
+              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
+              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <div class="flex items-baseline justify-between">
+        <h2 class="font-serif text-2xl text-stone-900">{t('home.upcomingEvents')}</h2>
+        <a href={`/${lang}/events`} class="text-sm text-stone-600 hover:text-stone-900">
+          {t('home.allEvents')}
+        </a>
+      </div>
+      <ul class="mt-4 space-y-4">
+        {upcomingEvents.length === 0 && <li class="text-stone-500">{t('home.noEvents')}</li>}
+        {upcomingEvents.map((item) => (
+          <li>
+            <a href={`/${lang}/events/${slugOf(item.id)}`} class="block group">
+              <p class="text-xs text-stone-500">
+                {localeDate(item.data.date, lang)} · {item.data.location}
+              </p>
+              <p class="font-medium text-stone-900 group-hover:underline">{item.data.title}</p>
+              <p class="text-sm text-stone-600 mt-1">{item.data.summary}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

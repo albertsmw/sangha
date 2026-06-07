@@ -1,28 +1,42 @@
 ---
+import { languages, useTranslations, type Lang } from '../i18n/ui';
+import { switchLangUrl } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/lama-dorje', label: 'Lama Dorje' },
-  { href: '/sangha', label: 'Sangha' },
-  { href: '/news', label: 'News' },
-  { href: '/events', label: 'Events' },
-  { href: '/contact', label: 'Contact' },
+  { href: `/${lang}/`, label: t('nav.home'), match: 'home' },
+  { href: `/${lang}/lama-dorje`, label: t('nav.lamaDorje'), match: 'lama-dorje' },
+  { href: `/${lang}/sangha`, label: t('nav.sangha'), match: 'sangha' },
+  { href: `/${lang}/news`, label: t('nav.news'), match: 'news' },
+  { href: `/${lang}/events`, label: t('nav.events'), match: 'events' },
+  { href: `/${lang}/contact`, label: t('nav.contact'), match: 'contact' },
 ];
 
-const { pathname } = Astro.url;
-const isActive = (href: string) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const current = segments[1] ?? 'home';
+const isActive = (match: string) =>
+  match === 'home' ? !segments[1] : current === match;
 ---
 
 <nav class="border-b border-stone-200 bg-white/80 backdrop-blur sticky top-0 z-10">
   <div class="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between flex-wrap gap-4">
-    <a href="/" class="font-serif text-xl tracking-wide text-stone-900">Sangha</a>
+    <a href={`/${lang}/`} class="font-serif text-xl tracking-wide text-stone-900">
+      {t('site.name')}
+    </a>
+
     <ul class="flex gap-6 text-sm">
-      {links.slice(1).map(({ href, label }) => (
+      {links.slice(1).map(({ href, label, match }) => (
         <li>
           <a
             href={href}
             class={`hover:text-stone-900 transition-colors ${
-              isActive(href) ? 'text-stone-900 font-medium' : 'text-stone-600'
+              isActive(match) ? 'text-stone-900 font-medium' : 'text-stone-600'
             }`}
           >
             {label}
@@ -30,5 +44,32 @@ const isActive = (href: string) =>
         </li>
       ))}
     </ul>
+
+    <div class="flex items-center gap-2 text-xs uppercase tracking-wider">
+      {(Object.keys(languages) as Lang[]).map((code, idx) => (
+        <>
+          {idx > 0 && <span class="text-stone-300">/</span>}
+          <a
+            href={switchLangUrl(Astro.url, code)}
+            data-lang={code}
+            class={`lang-switch hover:text-stone-900 ${
+              code === lang ? 'text-stone-900 font-medium' : 'text-stone-500'
+            }`}
+            aria-current={code === lang ? 'true' : undefined}
+          >
+            {code}
+          </a>
+        </>
+      ))}
+    </div>
   </div>
 </nav>
+
+<script>
+  for (const el of document.querySelectorAll<HTMLAnchorElement>('a.lang-switch')) {
+    el.addEventListener('click', () => {
+      const lang = el.dataset.lang;
+      if (lang) localStorage.setItem('lang', lang);
+    });
+  }
+</script>

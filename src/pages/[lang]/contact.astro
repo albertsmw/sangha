@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { languages, useTranslations, type Lang } from '../../i18n/ui';
+import { isLang } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} title={t('contact.title')}>
+  <h1 class="font-serif text-4xl text-stone-900">{t('contact.title')}</h1>
+  <p class="mt-4 text-stone-600 max-w-xl">{t('contact.intro')}</p>
+
+  <div class="grid md:grid-cols-2 gap-12 mt-10">
+    <div>
+      <h2 class="font-serif text-xl text-stone-900">{t('contact.byEmail')}</h2>
+      <p class="text-stone-700 mt-1">
+        <a href="mailto:hello@example.com" class="underline">hello@example.com</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-xl text-stone-900">{t('contact.whereWeMeet')}</h2>
+      <p class="text-stone-700 mt-1">
+        [Address line 1]<br />
+        [City, postcode]
+      </p>
+    </div>
+  </div>
+</Base>

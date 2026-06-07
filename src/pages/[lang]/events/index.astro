@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { languages, useTranslations, type Lang } from '../../../i18n/ui';
+import { localeDate, isLang } from '../../../i18n/utils';
+import { assertParity, splitEntryId } from '../../../i18n/parity';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
+const t = useTranslations(lang);
+
+const all = await getCollection('events');
+assertParity(all, 'events');
+
+const langEntries = all.filter((e) => splitEntryId(e.id)?.lang === lang);
+const now = new Date();
+const upcoming = langEntries
+  .filter((e) => e.data.date >= now)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const past = langEntries
+  .filter((e) => e.data.date < now)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const slugOf = (id: string) => splitEntryId(id)?.slug ?? id;
+---
+
+<Base lang={lang} title={t('events.title')} description={t('events.subtitle')}>
+  <h1 class="font-serif text-4xl text-stone-900">{t('events.title')}</h1>
+  <p class="mt-4 text-stone-600">{t('events.subtitle')}</p>
+
+  <section class="mt-10">
+    <h2 class="font-serif text-2xl text-stone-900">{t('events.upcoming')}</h2>
+    <ul class="mt-4 space-y-6">
+      {upcoming.length === 0 && <li class="text-stone-500">{t('events.none')}</li>}
+      {upcoming.map((item) => (
+        <li class="border-b border-stone-200 pb-6">
+          <a href={`/${lang}/events/${slugOf(item.id)}`} class="block group">
+            <p class="text-xs text-stone-500">
+              {localeDate(item.data.date, lang)} · {item.data.location}
+            </p>
+            <h3 class="font-serif text-xl text-stone-900 mt-1 group-hover:underline">
+              {item.data.title}
+            </h3>
+            <p class="text-stone-700 mt-2">{item.data.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {past.length > 0 && (
+    <section class="mt-12">
+      <h2 class="font-serif text-2xl text-stone-900">{t('events.past')}</h2>
+      <ul class="mt-4 space-y-4 text-stone-600">
+        {past.map((item) => (
+          <li>
+            <a
+              href={`/${lang}/events/${slugOf(item.id)}`}
+              class="hover:text-stone-900"
+            >
+              {localeDate(item.data.date, lang)} — {item.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>
