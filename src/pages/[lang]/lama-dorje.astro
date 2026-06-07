@@ -44,9 +44,6 @@ const { Content } = await render(entry);
 
   <article class="max-w-3xl mx-auto mt-16">
     <h1 class="font-serif text-4xl text-stone-900">{entry.data.title}</h1>
-    {entry.data.intro && (
-      <p class="text-lg text-stone-600 mt-4">{entry.data.intro}</p>
-    )}
     <div class="prose prose-stone mt-8 max-w-none">
       <Content />
     </div>
