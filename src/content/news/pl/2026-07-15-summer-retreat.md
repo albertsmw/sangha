@@ -1,14 +1,10 @@
 ---
-type: event
-title: Letnie odosobnienie z Lamą Dorje
-date: 2026-07-15
-location: Ośrodek górski
-summary: Trzydniowe odosobnienie w milczeniu poświęcone praktyce szamatha i współczucia. Otwarte dla wszystkich poziomów.
+type: news
+title: Spotkanie z Lamą Dordże w Piwnicy Powszechnej
+date: 2026-06-03
+location: Piwnica Powszechna
+summary: Dziękujemy wszystkim, którzy dołączyli do nas na środową rozmowę! Piotr Sikora rozmawiał z Lamą Dordże o szerokim zakresie tematów dotyczących tradycji buddyjskiej i katolickiej oraz praktyk kontemplacyjnych.
 highlight: true
 ---
 
-Zapraszamy na trzy dni prowadzonej praktyki, nauk i cichego skupienia w górach. Osoby
-początkujące są mile widziane. Prosimy o wygodny ubiór i poduszkę do medytacji, jeśli ją
-posiadasz.
-
-Zapisy zamykamy tydzień przed rozpoczęciem. Aby się zgłosić, skorzystaj ze strony kontaktowej.
+Dziękujemy wszystkim, którzy dołączyli do nas na środową rozmowę! Piotr Sikora rozmawiał z Lamą Dordże o szerokim zakresie tematów dotyczących tradycji buddyjskiej i katolickiej oraz praktyk kontemplacyjnych.
