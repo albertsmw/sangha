@@ -14,7 +14,7 @@ export const ui = {
 
     'nav.home': 'Home',
     'nav.lamaDorje': 'Lama Dorje',
-    'nav.sangha': 'Sangha',
+    'nav.sangha': 'Community',
     'nav.news': 'News',
     'nav.contact': 'Contact',
 
@@ -46,7 +46,7 @@ export const ui = {
 
     'nav.home': 'Strona główna',
     'nav.lamaDorje': 'Lama Dorje',
-    'nav.sangha': 'Sangha',
+    'nav.sangha': 'Społeczność',
     'nav.news': 'Aktualności',
     'nav.contact': 'Kontakt',
 
