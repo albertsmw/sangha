@@ -8,7 +8,7 @@ Niezależnie od tego, czy dopiero zaczynasz swoją przygodę z praktyką buddyjs
 
 Aby być na bieżąco z nadchodzącymi sesjami medytacyjnymi, naukami, spotkaniami i innymi wydarzeniami, możesz:
 
-- Dołączyć do naszej [grupy społecznościowej na WhatsAppie](https://chat.whatsapp.com/KMIEcrpEvho2oiIBxfZfoN?mode=gi_t)
+- Dołączyć do naszej [grupy na WhatsAppie](https://chat.whatsapp.com/KMIEcrpEvho2oiIBxfZfoN?mode=gi_t)
 - Obserwować nas na [Facebooku](https://www.facebook.com/profile.php?id=61590731840739)
 - Sprawdzać nadchodzące wydarzenia na tej stronie
 
