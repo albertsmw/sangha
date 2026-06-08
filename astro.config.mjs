@@ -5,7 +5,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://lamadorje.pl',
   i18n: {
     locales: ['en', 'pl'],
     defaultLocale: 'en',
