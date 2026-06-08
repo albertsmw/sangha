@@ -4,6 +4,8 @@ title: Upcoming meeting at Piwnica Powszechna
 date: 2026-06-01
 location: Piwnica Powszechna
 summary: We'll be joining the Piwnica Powszechna Catholic community for an evening of conversation across our traditions. Details and RSVP on the Facebook event page.
+image: /images/news/piwnica_logo.jpg
+imageAlt: Piwnica Powszechna logo
 highlight: false
 ---
 

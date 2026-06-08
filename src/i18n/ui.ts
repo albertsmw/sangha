@@ -55,7 +55,7 @@ export const ui = {
 
     'home.title': 'Wspólnota praktyki',
     'home.intro':
-      'Witamy w naszej sandze. Spotykamy się na medytacji, naukach i odosobnieniach pod kierunkiem Lamy Dordże.',
+      'Witamy w naszej sandze. Spotykamy się na medytacji, naukach i odosobnieniach pod kierunkiem Lamy Dorje.',
     'home.latestNews': 'Najnowsze aktualności',
     'home.allNews': 'Wszystkie aktualności →',
     'home.noNews': 'Brak aktualności.',
