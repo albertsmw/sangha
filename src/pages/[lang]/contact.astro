@@ -11,7 +11,7 @@ const { lang } = Astro.params;
 if (!isLang(lang!)) throw new Error(`Unknown lang: ${lang}`);
 const t = useTranslations(lang);
 
-const whatsappUrl = '#';
+const whatsappUrl = 'https://chat.whatsapp.com/KMIEcrpEvho2oiIBxfZfoN?mode=gi_t';
 ---
 
 <Base lang={lang} title={t('contact.title')}>
