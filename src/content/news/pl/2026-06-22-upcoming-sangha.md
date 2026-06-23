@@ -17,6 +17,3 @@ Spotkanie odbędzie się w języku angielskim z tłumaczeniem na język polski.
 **Godzina:** 18:45 – 20:15  
 **Miejsce:** Embodiment Studio, Barska 30/1, 30-307 Kraków  
 [Zobacz na Google Maps](https://maps.app.goo.gl/FasqXyr2aNf1pJ8R9)
-
-Prosimy o wcześniejszą rejestrację.
-(https://forms.gle/RR1XjG5Q1xu4X5Vb8)

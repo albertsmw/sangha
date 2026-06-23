@@ -17,6 +17,3 @@ The meeting will be held in English with Polish translation.
 **Time:** 6:45 PM – 8:15 PM  
 **Location:** Embodiment Studio, Barska 30/1, 30-307 Kraków  
 [View on Google Maps](https://maps.app.goo.gl/FasqXyr2aNf1pJ8R9)
-
-Please register in advance.
-(https://forms.gle/RR1XjG5Q1xu4X5Vb8)
