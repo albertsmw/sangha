@@ -1,8 +1,7 @@
 # Sangha website
 
-A small static website for a Buddhist sangha — Lama Dorje page, community info, news,
-and contact. Built to be cheap (free hosting), fast to develop, and editable by a
-handful of developers without a separate CMS.
+A small static website for a Buddhist sangha page, community info, news,
+and contact.
 
 ## Languages
 
@@ -51,8 +50,7 @@ folder.
 **React islands.** The site is mostly plain Astro components (`.astro` files), which
 ship as HTML with zero JavaScript. React is wired up via `@astrojs/react` and can be
 dropped in for any future interactive piece (carousel, donation widget, etc.) using
-`<Component client:load />`. Right now nothing on the site needs React on the client, so
-the bundle is essentially empty.
+`<Component client:load />`.
 
 **Tailwind CSS** (v4, via the Vite plugin) handles styling. All visual choices — stone
 neutral palette, serif headings, generous spacing — live as classes in the templates.
@@ -100,24 +98,9 @@ pnpm preview      # serve the built site to double-check before deploy
 
 ## Deploying (Cloudflare Pages, free)
 
-1. Push this repo to GitHub.
-2. In the Cloudflare dashboard: Pages → "Connect to Git" → pick the repo.
-3. Set build command `pnpm build`, build output `dist/`.
-4. Every merge to `main` rebuilds and redeploys automatically.
-
+Every merge to `main` rebuilds and redeploys automatically.
 The free tier covers unlimited bandwidth, custom domain, and HTTPS.
 
 ## Editing content
 
 See `CONTRIBUTING.md` for the step-by-step on adding a news post (regular or event-type).
-
-## Adding donations later
-
-Two options, both work without changing the framework or hosting:
-
-- **Stripe Payment Link** — make one in the Stripe dashboard, drop `<a href="...">Donate</a>`
-  in the layout. Zero new infrastructure.
-- **Stripe Checkout via a serverless function** — `pnpm astro add cloudflare`, switch the
-  output to `'hybrid'`, add one API route that creates a Checkout session. The static
-  pages continue to be served statically; only the donation endpoint runs on Cloudflare's
-  Worker runtime (still free tier).
