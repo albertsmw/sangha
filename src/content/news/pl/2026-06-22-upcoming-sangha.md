@@ -6,7 +6,7 @@ location: Embodiment Studio, Kraków
 summary: Zapraszamy na wieczór z Lamą Dorje, podczas którego będziemy zgłębiać buddyzm, wspólnie medytować i rozmawiać o budowaniu Sanghi. Otwarte zarówno dla doświadczonych praktykujących, jak i początkujących. Czwartek, 25 czerwca, godz. 18:45–20:15.
 image: /images/news/lotos.jpg
 imageAlt: Spotkanie z Lamą Dorje
-highlight: true
+highlight: false
 ---
 
 Zapraszamy na spotkanie z Lamą Dorje, podczas którego będziemy zgłębiać buddyzm, wspólnie medytować oraz rozmawiać o budowaniu Sanghi — wspólnoty praktykujących. Spotkanie jest otwarte zarówno dla doświadczonych praktykujących, jak i dla tych, którzy dopiero zaczynają odkrywać medytację i buddyzm.
