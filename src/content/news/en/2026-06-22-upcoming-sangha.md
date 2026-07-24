@@ -6,7 +6,7 @@ location: Embodiment Studio, Kraków
 summary: Join us for an evening with Lama Dorje to explore Buddhism, meditate together, and discuss building the Sangha. Open to experienced practitioners and beginners alike. Thursday, June 25, 6:45–8:15 PM.
 image: /images/news/lotos.jpg
 imageAlt: Lama Dorje gathering
-highlight: true
+highlight: false
 ---
 
 We invite you to a gathering with Lama Dorje, where we will explore Buddhism, meditate together, and discuss building the Sangha - a community of practitioners. The meeting is open to both experienced practitioners and those who are just beginning to discover meditation and Buddhism.
