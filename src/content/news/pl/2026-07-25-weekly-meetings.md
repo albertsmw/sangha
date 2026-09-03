@@ -6,7 +6,7 @@ location: Aleja Zygmunta Krasińskiego 30/12, Kraków
 summary: Z radością ogłaszamy nasz nowy, stały harmonogram cotygodniowych spotkań w nowej przestrzeni! Zapraszamy na Sobotnie wykłady, Środowe powtórki oraz Niedzielne spotkania towarzyskie. Wszyscy są serdecznie mile widziani!
 image: /images/news/Lama-Weekly.jfif
 imageAlt: Cotygodniowe spotkania Sanghi
-highlight: true
+highlight: false
 ---
 
 Cieszymy się na wspólne spotkania i praktykę w tej uroczej nowej przestrzeni! Poniżej znajduje się nasz stały harmonogram tygodniowy rozpoczynający się pod koniec lipca:

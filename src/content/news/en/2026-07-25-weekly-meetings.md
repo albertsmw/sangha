@@ -6,7 +6,7 @@ location: Aleja Zygmunta Krasińskiego 30/12, Kraków
 summary: We are excited to announce our new official weekly schedule at our new space! Join us for Saturday Teachings, Wednesday Practice & Review, and Sunday Social Events. Everyone is warmly invited!
 image: /images/news/Lama-Weekly.jfif
 imageAlt: Sangha Weekly Meetings
-highlight: true
+highlight: false
 ---
 
 We look forward to gathering and practicing together in this lovely new space! Below is our official weekly schedule starting late July:
